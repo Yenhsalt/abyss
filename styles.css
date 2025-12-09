@@ -1,0 +1,200 @@
+@charset "UTF-8";
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-areas: "ground"
+  "crust"
+  "upper"
+  "mantle"
+  "outer"
+  "core"
+  "footer";
+  grid-template-columns: 4fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 0.2fr;
+}
+
+.ground {
+  grid-area: ground;
+
+  background-image: linear-gradient(to top, black 0%, transparent 60%)
+  ,url(pic/ground.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.crust {
+  grid-area: crust;
+
+  background-image: linear-gradient(to top, black 0%, transparent 50%, black 90%)
+  ,url(pic/crust.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.upper {
+  grid-area: upper;
+
+  background-image: linear-gradient(to top, black 0%, transparent 50%, black 90%)
+  ,url(pic/upper.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.mantle {
+  grid-area: mantle;
+
+  background-image: linear-gradient(to top, black 0%, transparent 50%, black 90%)
+  ,url(pic/mantle.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.outer {
+  grid-area: outer;
+
+  background-image: linear-gradient(to top, black 0%, transparent 50%, black 90%)
+  ,url(pic/outer.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.core {
+  grid-area: core;
+
+  background-image: linear-gradient(to top, black 0%, transparent 50%, black 95%)
+  ,url(pic/core.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.footer {
+  grid-area: footer;
+}
+
+.elevator-track {
+  /* 讓這個軌道從第 1 條線跨到最後 1 條線 (-1 代表最後) */
+  /* 這樣它的高度就會等於所有地層加起來的總高度 */
+  grid-column: 1 / -1;
+  grid-row: 2 / -1;
+
+  /* 讓它浮在背景圖片上面 */
+  z-index: 1; 
+  
+  /* 讓滑鼠點擊可以「穿透」軌道，才不會擋住背景的按鈕或文字 */
+  pointer-events: none;
+
+  /* 排版設定，讓電梯水平置中 */
+  display: flex;
+  justify-content: center; /* 水平置中 (解決靠左問題) */
+  align-items: flex-start; /* 確保高度不會被拉伸 (解決 Sticky 失效問題) */
+}
+
+.elevator-wrapper {
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 160px;
+  height: 220px;
+  
+  /* 開啟電梯的滑鼠互動 (如果電梯需要被點擊的話) */
+  pointer-events: auto;
+  /*background-color: rgba(255, 0, 225, 0.2); */
+}
+
+.elevator-wrapper svg {
+  overflow: visible;
+}
+
+.elevator1, .elevator2 {
+  stroke: #fff193;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 2px #ff1b1b) drop-shadow(0 0 10px #ffc20c);
+}
+.elevator1 {
+  fill: url(#line-left);
+}
+.elevator2 {
+  fill: url(#line-right);
+  stroke-width: none;
+}
+
+.elevator-frame {
+  fill: none;
+  stroke: #fff193;
+  filter: drop-shadow(0 0 2px #ff1b1b) drop-shadow(0 0 10px #ffc20c);
+  stroke-width: 2px;
+}
+
+line {
+  stroke: #fff193;
+  stroke-width: 3px;
+}
+
+/* --- CRT 螢幕特效 --- */
+
+.crt-overlay {
+    /* 霸佔整個視窗，不隨捲動跑掉 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    /* 讓滑鼠穿透這個層，才點得到下面的東西 */
+    pointer-events: none;
+    
+    /* 確保它蓋在最上面 (比電梯還要高) */
+    z-index: 2;
+    
+    /* 暗角效果：四周變暗，模擬圓形映像管 */
+    background: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0) 60%, 
+        rgba(0, 0, 0, 0.4) 80%, 
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    background-color: rgba(0, 255, 0, 0.05); /* 整體綠色調 */
+    mix-blend-mode: overlay; /* 讓顏色和下面內容混合 */
+}
+
+/* 掃描線層 */
+.scanlines {
+    width: 100%;
+    height: 100%;
+    
+    /* 製作橫條紋 */
+    /* 使用重複線性漸層：透明 -> 黑色半透明 -> 透明 */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%, /* a是線條深淺，可調整 */
+        rgba(0, 0, 0, 0.25)
+    );
+    
+    /* 線條密度： N px 一個循環 */
+    background-size: 100% 4px; 
+    
+    /* 加入微微閃爍動畫 */
+    animation: flicker 0.15s infinite;
+}
+
+/* 閃爍動畫：模擬舊螢幕的不穩定電流 */
+@keyframes flicker {
+    0% { opacity: 0.95; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.95; }
+}

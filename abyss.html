@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深淵探勘</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="crt-overlay">
+    <div class="scanlines"></div>
+</div>
+
+<div class="container">
+
+<div class="elevator-track">
+    <div class="elevator-wrapper">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200" preserveAspectRatio="xMidYMid meet">
+
+            <polygon class="elevator-frame" points="20,-5 20,-10 30,-20 68,-20 78,-10 78,-5"></polygon>
+            <rect class="elevator-frame" x="3" y="0" width="94" height="5"></rect>
+
+            <rect class="elevator2" x="5" y="10" width="40" height="115"></rect>
+            <rect class="elevator1" x="5" y="10" width="40" height="115"></rect>
+        
+            <rect class="elevator1" x="55" y="10" width="40" height="115"></rect>
+            <rect class="elevator2" x="55" y="10" width="40" height="115"></rect>
+
+            <polygon class="elevator-frame" points="3,130 3,133 10,135 90,135 97,133 97,130"></polygon>
+
+            <defs>
+            <pattern id="line-left" 
+             width="8" height="10"
+             patternUnits="userSpaceOnUse" 
+             patternTransform="rotate(15)"><line x1="0" y1="0" x2="0" y2="10"/>
+             </pattern>
+
+            <pattern id="line-right" 
+                     width="8" height="10"
+                     patternUnits="userSpaceOnUse" 
+                     patternTransform="rotate(-15)"> <line x1="0" y1="0" x2="0" y2="10"/>
+            </pattern>
+
+            </defs>
+        
+        </svg>
+    </div>
+</div>
+
+<div class="ground"></div>
+<div class="crust"></div>
+<div class="upper">upper</div>
+<div class="mantle">mantle</div>
+<div class="outer">outer</div>
+<div class="core">core</div>
+
+<div class="footer">footer</div>
+</div>
+
+</body>
+</html>
